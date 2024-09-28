@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Inscripción</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="https://img.freepik.com/vector-premium/diseno-plantilla-logotipo-rompecabezas-matematicas_316488-5174.jpg" style="height: 150px; width: 150px;" alt=""></a>
+        </div>
+      </nav>
+
+<div class="container mt-5">
+    <h1>Inscripciones</h1>
+    <form id="registrationForm" novalidate>
+        <!-- Tipo Documento -->
+        <div class="mb-3">
+            <label for="tipoDocumento" class="form-label">Tipo de Documento</label>
+            <select class="form-select" id="tipoDocumento" required>
+                <option value="">Seleccione...</option>
+                <option value="Cc">Cedula de Ciudadania</option>
+                <option value="Tarjeta">Tarjeta de identidad</option>
+            </select>
+            <div class="invalid-feedback">Por favor, seleccione un tipo de documento.</div>
+        </div>
+
+        <!-- Documento -->
+        <div class="mb-3">
+            <label for="documento" class="form-label">Documento</label>
+            <input type="text" class="form-control" id="documento" placeholder="Número de documento" required>
+            <div class="invalid-feedback">Por favor, ingrese un número de documento válido.</div>
+        </div>
+
+        <!-- Nombre -->
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" placeholder="Nombre completo" required>
+            <div class="invalid-feedback">Por favor, ingrese su nombre completo.</div>
+        </div>
+
+        <!-- Fecha de Nacimiento -->
+        <div class="mb-3">
+            <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+            <input type="date" class="form-control" id="fechaNacimiento" required>
+            <div class="invalid-feedback">Por favor, ingrese su fecha de nacimiento.</div>
+        </div>
+
+        <div class="form-floating">
+            <input type="date" class="form-control" id="fecha" name="fecha" placeholder="fecha de nacimiento" onblur="calcularEdad()">
+            <label for="floatingPassword">Fecha de nacimiento</label>
+        </div>
+
+
+
+        <!-- Evento -->
+        <div class="mb-3">
+            <label for="evento" class="form-label">Evento</label>
+            <select class="form-select" id="evento" required>
+                <option value="">Seleccione el evento...</option>
+                <option value="rv">Conferencia sobre Realidad Virtual</option>
+                <option value="ia">Conferencia sobre IA</option>
+                <option value="cs">Conferencia sobre Ciberseguridad</option>
+            </select>
+            <div class="invalid-feedback">Por favor, seleccione un evento.</div>
+        </div>
+
+          <!-- Costo (bloqueado) -->
+          <div class="mb-3">
+            <label for="costo" class="form-label">Costo</label>
+            <input type="number" class="form-control" id="costo" placeholder="$" readonly required>
+            <div class="invalid-feedback">Por favor, ingrese el costo.</div>
+        </div>
+
+        
+        <div class="mb-3">
+            <label for="codigoPromocional" class="form-label">Código Promocional</label>
+            <input type="text" class="form-control" id="codigoPromocional" placeholder="Código promocional">
+        </div>
+
+        
+        <div class="mb-3">
+            <label for="totalPagar" class="form-label">Total a Pagar</label>
+            <input type="number" class="form-control" id="totalPagar" placeholder="$" required>
+            <div class="invalid-feedback">Por favor, ingrese el total a pagar.</div>
+        </div>
+
+        
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    
+    const eventoSelect = document.getElementById('evento');
+    const costoInput = document.getElementById('costo');
+    const totalPagarInput = document.getElementById('totalPagar');
+    const codigoPromocionalInput = document.getElementById('codigoPromocional');
+
+    let costo = 0;
+
+    // Asignar costos según el evento seleccionado
+    eventoSelect.addEventListener('change', function() {
+        switch (eventoSelect.value) {
+            case 'rv':
+                costo = 1000000;
+                break;
+            case 'ia':
+                costo = 1500000;
+                break;
+            case 'cs':
+                costo = 1200000;
+                break;
+            default:
+                costo = 0;
+        }
+        // Rellenar el campo de costo y total a pagar
+        actualizarCostos();
+    });
+
+    // Evento para aplicar descuento cuando se ingrese el código promocional
+    codigoPromocionalInput.addEventListener('input', function() {
+        actualizarCostos();
+    });
+
+    
+    function actualizarCostos() {
+        let total = costo;
+        
+        // Si el código es "DESCUENTO10", aplicar un descuento del 10%
+        if (codigoPromocionalInput.value === "DESCUENTO10") {
+            total = costo * 0.9; 
+        }
+
+        // Actualizar los campos de costo y total a pagar
+        costoInput.value = costo;
+        totalPagarInput.value = total.toFixed(2); // Limitar a 2 decimales
+    }
+
+
+    (function () {
+        'use strict'
+
+        // Obtener el formulario
+        var form = document.getElementById('registrationForm');
+
+        // Evento submit para validar
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            form.classList.add('was-validated');
+        }, false);
+    })();
+
+    function calcularEdad(){
+        var hoy = new Date();
+        var cumpleaños = new Date(document.getElementById('fecha').value);
+        var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+        var m = hoy.getMonth() - cumpleanos.getMonth();
+
+        if(m < 0 ||(m === 0 && hoy.getDate() < cumpleaños.getDate())){
+            edad--;
+        }
+            document.getElementById('edad').value=edad;
+
+    if(edad >=15){
+        document.getElementById('eventos').style.display='block';
+    }else{
+        document.getElementById('eventos').style.display='none';
+    }        
+            
+    }
+
+</script>
+</body>
+</html>
