@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Componentes Personalizados</title>
+    <style>
+       
+       body{
+        background-image: url(https://images.unsplash.com/photo-1663970206579-c157cba7edda?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9uZG8lMjBkZSUyMHBhbnRhbGxhJTIwcGFyYSUyMHBjfGVufDB8fDB8fHww);
+       }
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            gap: 20px;
+            color: purple;
+            
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor centrado con componentes personalizados -->
+    <div class="center-container">
+        <!-- Componente Ayuda Span -->
+        <ayuda-span>Este es un texto de ayuda</ayuda-span>
+        <!-- Componente Botón Notificaciones -->
+        <boton-notificaciones></boton-notificaciones>
+        <!-- Componente Caja de Texto para Clave -->
+        <caja-texto-clave></caja-texto-clave>
+        <!-- Componente Formulario con Cupón de Descuento -->
+        <formulario-descuento></formulario-descuento>
+    </div>
+    <script src="componentes.js"></script>
+</body>
+</html>
